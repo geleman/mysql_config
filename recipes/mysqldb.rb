@@ -11,7 +11,7 @@ mysql_service 'test' do
 	port '3306'
 	version '5.6'
 	data_dir '/data/mysql'
-	error_log '/logs/mysql'
+	error_log '/logs/mysql/mysql.err'
 	socket '/tmp/mysqld.sock'
 	initial_root_password 'change_me'
 	action [:create, :start]

@@ -40,3 +40,9 @@ mysql_config 'test' do
 	action :create
 	notifies :restart, 'mysql_service[test]'
 end
+
+execute 'remove old innodb log files' do
+	command 'rm /data/mysql/ib_logfile*'
+	user 'root'
+	action :run
+end

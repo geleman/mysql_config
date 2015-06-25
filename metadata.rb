@@ -6,6 +6,7 @@ description      'Installs/Configures mysql_config'
 long_description 'Installs/Configures mysql_config'
 version          '0.1.0'
 
-depends "mysql"
-depends "lvm"
-depends "selinux"
+depends 'mysql'
+depends 'lvm'
+depends 'selinux'
+depends 'sysctl'

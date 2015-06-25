@@ -12,9 +12,9 @@ end
 
 
 directory '/logs/mysql' do
-          owner 'root'
-          group 'root'
-          mode '0750'
-          recursive true
-          action :create
-        end
+  owner 'root'
+  group 'root'
+  mode '0750'
+  recursive true
+  action :create
+end

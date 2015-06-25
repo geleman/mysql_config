@@ -10,11 +10,10 @@ lvm_volume_group 'data' do
 	end	
 end
 
-
 directory '/data/mysql' do
-          owner 'root'
-          group 'root'
-          mode '0750'
-          recursive true
-          action :create
-        end
+  owner 'root'
+  group 'root'
+  mode '0750'
+  recursive true
+  action :create
+end

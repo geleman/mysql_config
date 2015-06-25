@@ -6,7 +6,7 @@ end
 directory '/tmp/shm' do
 	owner 'root'
 	group 'root'
-	mode  '0755'
+	mode  '0777'
 	recursive true
 	action :create
 end

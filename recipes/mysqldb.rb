@@ -18,14 +18,3 @@ mysql_service 'test' do
 	initial_root_password 'change_me'
 	action [:create, :start]
 end
-
-
-#execute "change data_dir permissions" do
-#	command "chown -R mysql:mysql /data/mysql"
-#	action :nothing
-#end
-
-#execute "change log_dir permissions" do
-#	command "chown -R mysql:mysql /logs/mysql"
-#	action :run
-#end

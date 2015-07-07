@@ -8,7 +8,7 @@
 #
 
 
-mysql_service 'test' do
+mysql_service node['mysql_config']['instance_name'] do
 	port '3306'
 	version '5.6'
 	data_dir '/data/mysql'
@@ -24,14 +24,14 @@ end
 
 execute 'change binlogs dir permissions' do
 	command 'chown -R mysql:mysql /logs/mysql/bin-logs'
-    user 'root'
-    action :run
+  user 'root'
+  action :run
 end
 
 execute 'change reloay logs dir permissions' do
 	command 'chown -R mysql:mysql /logs/mysql/relay-logs'
-    user 'root'
-    action :run
+  user 'root'
+  action :run
 end
 
 mysql_config 'test' do

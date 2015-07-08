@@ -2,7 +2,7 @@
 # Cookbook Name:: mysql_config
 # Recipe:: sysctl
 #
-#Copyright (c) 2015 gannett digital
+# Copyright (c) 2015 gannett digital
 #
 #
 

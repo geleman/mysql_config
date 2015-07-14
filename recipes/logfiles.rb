@@ -13,7 +13,7 @@ end
 directory '/logs/mysql' do
   owner 'root'
   group 'root'
-  mode '0755'
+  mode '0750'
   recursive true
   action :create
 end
@@ -21,7 +21,7 @@ end
 directory '/logs/mysql/bin-logs' do
   owner 'root'
   group 'root'
-  mode '0755'
+  mode '0750'
   recursive true
   action :create
 end

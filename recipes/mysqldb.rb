@@ -32,7 +32,7 @@ mysql_config node['mysql_config']['instance_name'] do
   instance node['mysql_config']['instance_name']
   source 'defaults.cnf.erb'
   action :create
-  notifies :restart, "mysql_service[#{node['mysql_config']['instance_name']}]"
+  notifies :restart, "mysql_service[#{node['mysql_config']['instance_name']}]", :immediately
 end
 
 execute 'remove old innodb log files' do

@@ -1,7 +1,7 @@
 #default configs
 
 [mysqld_safe]
-user = <% node['mysql_config']['user'] %>
+user = <%= node['mysql_config']['user'] %>
 port = <%= node['mysql_config']['port'] %>
 datadir = /data/mysql
 

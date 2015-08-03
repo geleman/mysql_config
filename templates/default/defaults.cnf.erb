@@ -7,6 +7,7 @@ datadir = /data/mysql
 
 [mysqld]
 #general settings
+server_id = <%= @server_id %>
 max_allowed_packet = <%= node['mysql_config']['max_allowed_packet'] %>
 open-files-limit = 65535
 myisam-recover = FORCE,BACKUP

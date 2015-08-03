@@ -1,6 +1,6 @@
 # Default config attributes
 
-node.normal['mysql_config']['instance_name'] = 'test'
+node.normal['mysql_config']['instance_name'] = 'master'
 node.normal['mysql_config']['user'] = 'mysql'
 node.normal['mysql_config']['port'] = '3306'
 node.normal['mysql_config']['max_allowed_packet'] = '64M'
@@ -15,4 +15,5 @@ node.normal['mysql_config']['innodb_log_file_size'] = '128M'
 node.normal['mysql_config']['innodb_log_buffer_size'] = '48M'
 node.normal['mysql_config']['innodb_flush_log_at_trx_commit'] = '2'
 node.normal['mysql_config']['innodb_stats_on_metadata'] = 'OFF'
-node.normal['mysql_config']['databag_name'] = 'test'
+node.normal['mysql_config']['databag_name'] = 'master'
+#node.normal['mysql_config']['server_id'] = rand(1001..2000)

@@ -28,9 +28,20 @@ execute 'change binlogs dir permissions' do
   action :run
 end
 
+if node['mysql_config']['instance_name'] == 'master'
+  #require 'ipaddr'
+  server_id = rand(1001..2000)
+  server_id = server_id.to_i
+else
+  server_id = rand(2001..9999)
+end
+
 mysql_config node['mysql_config']['instance_name'] do
   instance node['mysql_config']['instance_name']
   source 'defaults.cnf.erb'
+  variables(
+    server_id: server_id
+    )
   action :create
   notifies :restart, "mysql_service[#{node['mysql_config']['instance_name']}]", :immediately
 end

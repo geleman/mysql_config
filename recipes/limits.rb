@@ -2,8 +2,9 @@
 # Cookbook Name:: mysql_config
 # Recipe:: limits
 #
-# Copyright (c) 2015 gannett digital
+# Copyright (C) 2015 Greg Lane
 #
+# All rights reserved - Do Not Redistribute
 #
 
 limits_config 'system limits' do

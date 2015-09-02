@@ -1,12 +1,24 @@
-include_recipe 'lvm::default'
+#
+# Cookbook Name:: mysql_config
+# Recipe:: datafiles
+#
+# Copyright (C) 2015 Greg Lane
+#
+# All rights reserved - Do Not Redistribute
+#
 
-lvm_volume_group 'data' do
-  physical_volumes ['/dev/sdb']
-  logical_volume 'datafiles' do
-    group 'data'
-    size '100%VG'
-    filesystem 'ext4'
-    mount_point location: '/data', options: 'noatime,data=ordered'
+if !node['mysql_config']['data']['disk'].nil? && File.exist?(node['mysql_config']['data']['disk'])
+  case node['platform']
+  when 'redhat', 'centos', 'amazon', 'scientific'  
+  include_recipe 'mysql_config::datafiles_lvm'
+  end
+else 
+  directory node['mysql_config']['data']['mount'] do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    recursive true
+    action :create
   end
 end
 

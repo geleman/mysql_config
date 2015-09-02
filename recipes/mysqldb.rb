@@ -2,12 +2,17 @@
 # Cookbook Name:: mysql_config
 # Recipe:: mysqldb
 #
-# Copyright (C) 2015 YOUR_NAME
+# Copyright (C) 2015 Greg Lane
 #
 # All rights reserved - Do Not Redistribute
 #
 
 opts = data_bag_item('mysql', node['mysql_config']['databag_name'])
+include_recipe 'iptables'
+
+iptables_rule 'mysql' do
+  source 'mysql_3306'
+end
 
 mysql_service node['mysql_config']['instance_name'] do
   port '3306'
@@ -29,7 +34,6 @@ execute 'change binlogs dir permissions' do
 end
 
 if node['mysql_config']['instance_name'] == 'master'
-  #require 'ipaddr'
   server_id = rand(1001..2000)
   server_id = server_id.to_i
 else
@@ -52,8 +56,5 @@ execute 'remove old innodb log files' do
   action :run
 end
 
-execute 'change scheduler' do
-  command "echo 'deadline' > /sys/block/sda/queue/scheduler"
-  user 'root'
-  action :run
-end
+
+

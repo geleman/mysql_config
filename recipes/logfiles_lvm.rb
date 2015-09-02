@@ -1,24 +1,21 @@
 #
 # Cookbook Name:: mysql_config
-# Recipe:: logfiles
+# Recipe:: logfiles_lvm
 #
 # Copyright (C) 2015 Greg Lane
 #
 # All rights reserved - Do Not Redistribute
 #
 
-if !node['mysql_config']['log']['disk'].nil? && File.exist?(node['mysql_config']['log']['disk'])
-  case node['platform']
-  when 'redhat', 'centos', 'amazon', 'scientific'
-  include_recipe 'mysql_config::logfiles_lvm'
-  end
-else 
-  directory node['mysql_config']['log']['mount'] do
-    owner 'root'
-    group 'root'
-    mode '0755'
-    recursive true
-    action :create
+include_recipe 'lvm::default'
+
+lvm_volume_group 'logs' do
+  physical_volumes [node['mysql_config']['log']['disk']]
+  logical_volume 'logfiles' do
+    group 'logs'
+    size '100%VG'
+    filesystem 'ext4'
+    mount_point location: node['mysql_config']['log']['mount'], options: 'noatime,data=ordered'
   end
 end
 

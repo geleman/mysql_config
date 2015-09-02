@@ -1,3 +1,12 @@
+#
+# Cookbook Name:: mysql_config
+# Recipe:: tmpdir
+#
+# Copyright (C) 2015 Greg Lane
+#
+# All rights reserved - Do Not Redistribute
+#
+
 mount '/dev/shm' do
   device 'tmpfs'
   action [:umount, :disable]

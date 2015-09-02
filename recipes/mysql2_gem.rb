@@ -1,14 +1,12 @@
 #
 # Cookbook Name:: mysql_config
-# Recipe:: sysctl
+# Recipe:: mysql2_gem
 #
 # Copyright (C) 2015 Greg Lane
 #
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'sysctl::default'
-
-sysctl_param 'vm.swappiness' do
-  value 0
+mysql2_chef_gem 'default' do
+  action :install
 end

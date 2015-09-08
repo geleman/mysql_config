@@ -27,7 +27,7 @@ mysql_service node['mysql_config']['instance_name'] do
   action [:create, :start]
 end
 
-execute 'change binlogs dir permissions' do
+execute 'change /logs/mysql dir permissions' do
   command 'chown -R mysql:mysql /logs/mysql'
   user 'root'
   action :run

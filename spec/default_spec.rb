@@ -5,7 +5,6 @@ require 'fauxhai'
 
 describe 'mysql_config::mysqldb' do
   before do
-    # Chef::Recipe.any_instance.stub(:data_bag).with('mysql').and_return(json)
     stub_data_bag('mysql').and_return(['password', 'mysql'])
     stub_data_bag_item('mysql', 'master').and_return({
       id: 'mysql',
@@ -13,7 +12,7 @@ describe 'mysql_config::mysqldb' do
     })
     stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
   end
-  #let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '6.6').converge(described_recipe) }
+  
   cached(:mysql_config_test) do
     ChefSpec::SoloRunner.new(
       platform: 'centos',
@@ -61,7 +60,47 @@ describe 'mysql_config::mysqldb' do
     it 'removes old innodb log files' do
       expect(mysql_config_test).to run_execute('rm -f /data/mysql/ib_logfile*')
     end
+  end
 
+  # Resource in mysql_config_test::master
+  context 'compiling the test recipe' do
+    it 'creates mysql_config[master]' do
+      expect(mysql_config_test).to create_mysql_config('master')
+    end
+  end
+
+  # mysql_config resource internal implementation
+  context 'stepping into mysql_config[master] resource' do
+    it 'creates group[master :create mysql]' do
+      expect(mysql_config_test).to create_group('master :create mysql')
+        .with(group_name: 'mysql')
+    end
+
+    it 'creates user[master :create mysql]' do
+      expect(mysql_config_test).to create_user('master :create mysql')
+        .with(username: 'mysql')
+    end
+
+    it 'creates directory[master :create /etc/mysql-master/conf.d]' do
+      expect(mysql_config_test).to create_directory('master :create /etc/mysql-master/conf.d')
+        .with(
+          path: '/etc/mysql-master/conf.d',
+          owner: 'mysql',
+          group: 'mysql',
+          mode: '0750',
+          recursive: true
+        )
+    end
+
+    #it 'creates template[master :create /etc/mysql-master/conf.d/defaults.cnf]' do
+    #  expect(mysql_config_test).to create_template('master :create /etc/mysql-master/conf.d/defaults.cnf')
+    #    .with(
+    #      path: '/etc/mysql-master/conf.d/defaults.cnf',
+    #      owner: 'mysql',
+    #      group: 'mysql',
+    #      mode: '0640'
+    #    )
+    #end
   end
 end
 

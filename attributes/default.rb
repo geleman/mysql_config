@@ -28,4 +28,3 @@ node.normal['sysctl']['params']['vm']['swappiness'] = 0
 
 # master_ip attribute
 node.normal['mysql_config']['master_ip'] = '10.84.101.100'
-

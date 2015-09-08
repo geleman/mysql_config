@@ -6,12 +6,8 @@ require 'fauxhai'
 describe 'mysql_config::mysqldb' do
   before do
     # Chef::Recipe.any_instance.stub(:data_bag).with('mysql').and_return(json)
-    stub_data_bag('mysql').and_return(['password', 'mysql'])
-    stub_data_bag_item('mysql', 'test').and_return({
-      id: 'mysql',
-      password: 'test'
-    })
-    stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
+    #stub_data_bag('mysql').and_return(['password', 'mysql'])
+    stub_data_bag_item('mysql', 'master').and_return({ id: 'mysql', password: 'test' })
   end
   #let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '6.6').converge(described_recipe) }
   cached(:mysql_config_test) do
@@ -21,7 +17,7 @@ describe 'mysql_config::mysqldb' do
       step_into: 'mysql_service'
     ) do |node|
       node.set['mysql']['version'] = '5.5',
-      node.set['mysql_config']['instance_name'] = 'test',
+      node.set['mysql_config']['instance_name'] = 'master',
       node.set['mysql_config']['databag_name'] = 'mysql'
     end.converge('mysql_config::mysqldb')
   end
@@ -35,7 +31,7 @@ describe 'mysql_config::mysqldb' do
     end
   end
 
-  context 'stepping into mysql_service[test] resource' do
+  context 'stepping into mysql_service[master] resource' do
     it 'installs package mysql-community-server' do
       expect(mysql_config_test).to install_package('test :create mysql-community-server')
         .with(package_name: 'mysql-community-server', version: nil)

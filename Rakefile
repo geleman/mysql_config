@@ -12,7 +12,7 @@ namespace :style do
   FoodCritic::Rake::LintTask.new(:chef) do |t|
     t.options = {
       fail_tags: ['any'],
-      tags: ['~FC005']
+      tags: ['~FC005', '~FC003']
     }
   end
 end
@@ -24,6 +24,9 @@ task style: ['style:chef', 'style:ruby']
 desc 'Run ChefSpec examples'
 RSpec::Core::RakeTask.new(:spec)
 
+desc 'Run all tests on Travis'
+task travis: ['style', 'spec']
+
 # Integration tests. Kitchen.ci
 namespace :integration do
   desc 'Run Test Kitchen with Vagrant'
@@ -33,29 +36,17 @@ namespace :integration do
       instance.test(:always)
     end
   end
-
-  desc 'Run Test Kitchen with cloud plugins'
-  task :cloud do
-    run_kitchen = true
-    if ENV['TRAVIS'] == 'true' && ENV['TRAVIS_PULL_REQUEST'] != 'false'
-      run_kitchen = false
-    end
-
-    if run_kitchen
-      Kitchen.logger = Kitchen.default_file_logger
-      @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.cloud.yml')
-      config = Kitchen::Config.new(loader: @loader)
-      config.instances.each do |instance|
-        instance.test(:always)
-      end
+  task :ec2 do
+    Kitchen.logger = Kitchen.default_file_logger
+    @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.ec2.yml')
+    config = Kitchen::Config.new(loader: @loader)
+    config.instances.each do |instance|
+      instance.test(:always)
     end
   end
 end
 
-desc 'Run all tests on Travis'
-task travis: ['style', 'spec', 'integration:cloud']
-
 # Default
 task default: ['style', 'spec', 'integration:vagrant']
-
+task ec2: ['style', 'spec', 'integration:ec2']
 task test: ['style', 'spec']

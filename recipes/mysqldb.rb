@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-opts = data_bag_item('mysql', node['mysql_config']['databag_name'])
+opts = data_bag_item('mysql', 'master')
 include_recipe 'iptables'
 
 iptables_rule 'mysql' do
@@ -55,6 +55,3 @@ execute 'remove old innodb log files' do
   user 'root'
   action :run
 end
-
-
-

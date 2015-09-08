@@ -9,10 +9,10 @@
 
 if !node['mysql_config']['data']['disk'].nil? && File.exist?(node['mysql_config']['data']['disk'])
   case node['platform']
-  when 'redhat', 'centos', 'amazon', 'scientific'  
-  include_recipe 'mysql_config::datafiles_lvm'
+  when 'redhat', 'centos', 'amazon', 'scientific'
+    include_recipe 'mysql_config::datafiles_lvm'
   end
-else 
+else
   directory node['mysql_config']['data']['mount'] do
     owner 'root'
     group 'root'

@@ -20,7 +20,7 @@ describe 'mysql_config::mysqldb' do
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
   
-  cached(:mysqld) do
+  let(:mysqld) do
     ChefSpec::SoloRunner.new(
       platform: 'centos',
       version: '6.6',
@@ -80,7 +80,7 @@ describe 'mysql_config::mysqldb' do
     stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
   end
   
-  cached(:mysqld) do
+  let(:mysqld) do
     ChefSpec::SoloRunner.new(
       platform: 'centos',
       version: '6.6',

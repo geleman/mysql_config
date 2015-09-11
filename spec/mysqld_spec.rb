@@ -5,7 +5,6 @@ require 'fauxhai'
 
 describe 'mysql_config::mysqldb' do
   before do
-    stub_data_bag('mysql').and_return(['password', 'mysql'])
     stub_data_bag_item('mysql', 'master').and_return({ id: 'mysql', password: 'test' })
     stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
     stub_command("/usr/sbin/httpd -t").and_return(true)

@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute 'change /data scheduler' do
+execute 'data :create deadline data dir scheduler' do
   if node['mysql_config']['data']['disk'].nil?
     command "datamnt=`df -h /data | awk -F '/' '{ if (NR>1) {print $3}}' | awk '{print $1}'` | echo deadline > /sys/block/$datamnt/queue/scheduler"
   else
@@ -17,7 +17,7 @@ execute 'change /data scheduler' do
   end
 end
 
-execute 'change /logs scheduler' do
+execute 'logs :create deadline logs dir scheduler' do
   if node['mysql_config']['log']['disk'].nil?
     command "logmnt=`df -h /logs | awk -F '/' '{ if (NR>1) {print $3}}' | awk '{print $1}'` | echo deadline > /sys/block/$logmnt/queue/scheduler"
   else

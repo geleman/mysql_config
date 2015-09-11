@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-opts = data_bag_item('mysql', 'master')
+opts = data_bag_item('mysql', node['mysql_config']['databag_name'])
 include_recipe 'iptables'
 
 iptables_rule 'mysql' do

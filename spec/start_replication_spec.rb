@@ -20,8 +20,15 @@ describe 'mysql_config::start_replication' do
     stub_data_bag_item('users', 'rabdill').and_return({ id: "rabdill", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
-  
-  let(:replication) { ChefSpec::SoloRunner.converge('mysql_config::start_replication') }
+
+  let(:replication) do
+    ChefSpec::SoloRunner.new(
+      platform: 'centos',
+      version: '6.6'
+    ) do |node|
+      node.set['mysql_config']['instance_name'] = 'slave'
+    end.converge('mysql_config::start_replication')
+  end
   
 #  context 'compling the test recipe' do
 #    it 'creates mysql_database_user[replication]' do

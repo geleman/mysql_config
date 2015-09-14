@@ -3,12 +3,8 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::start_replication' do
+describe 'mysql_config::tmpdir' do
   before do
-    stub_data_bag_item('mysql', 'master').and_return({ id: 'master', password: 'test' })
-    stub_data_bag_item('mysql', 'slave').and_return({ id: 'slave', password: 'test' })
-    stub_data_bag_item('mysql', 'replication').and_return({ id: 'replication', password: 'test' })
-    stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
     stub_data_bag_item('users', 'fhanson').and_return({ id: "fhanson", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
@@ -21,29 +17,24 @@ describe 'mysql_config::start_replication' do
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
 
-  let(:replication) do
-    ChefSpec::SoloRunner.new(
-      platform: 'centos',
-      version: '6.6',
-      step_into: 'mysql_database_user'
-    ) do |node|
-      node.override['mysql_config']['instance_name'] = 'master'
-    end.converge('mysql_config::start_replication')
+  let(:tmpdir) { ChefSpec::SoloRunner.converge('mysql_config::tmpdir') }
+
+  it 'umounts /dev/shm directory' do
+    expect(tmpdir).to umount_mount('/dev/shm')
+  end
+
+  it 'creates /tmp/shm directory' do
+    expect(tmpdir).to create_directory('/tmp/shm')
+      .with(
+        path: '/tmp/shm',
+        owner: 'root',
+        group: 'root',
+        mode: '0777',
+        recursive: true
+     )
   end
   
-  #context 'compling the test recipe' do
-  #  it 'creates mysql_database_user[repl]' do
-  #    expect(replication).to create_mysql_database_user('repl')
-  #  end
-  #end
-
-  #context 'stepping into mysql_database_user[replication] resource' do
-  #  it 'creates user[replication create: repl]' do
-  #    expect(replication).to grant_user('replication :create repl')
-  #  end
-  #end
-
-  it 'runs bash[start replication]' do
-    stub_command("mysql -uroot -ptest -S /tmp/mysqld.sock -e\n    'select * from information_schema.global_status where variable_name like \"slave_running\";' | grep ON").and_return(true)
+  it 'mounts /tmp/shm directory' do
+    expect(tmpdir).to mount_mount('/tmp/shm')
   end
 end

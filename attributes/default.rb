@@ -15,12 +15,16 @@ node.normal['mysql_config']['innodb_log_buffer_size'] = '48M'
 node.normal['mysql_config']['innodb_flush_log_at_trx_commit'] = '2'
 node.normal['mysql_config']['innodb_stats_on_metadata'] = 'OFF'
 node.normal['mysql_config']['databag_name'] = 'master'
-node.normal['mysql_config']['databag_repl'] = 'replication'
 
 # disk attributes
+# vagrant settings
 node.normal['mysql_config']['data']['disk'] = '/dev/sdb'
-node.normal['mysql_config']['data']['mount'] = '/data'
 node.normal['mysql_config']['log']['disk'] =  '/dev/sdc'
+# solr settings
+# node.normal['mysql_config']['data']['disk'] = nil
+# node.normal['mysql_config']['log']['disk'] =  nil
+# solr & vagrant setttings
+node.normal['mysql_config']['data']['mount'] = '/data'
 node.normal['mysql_config']['log']['mount'] = '/logs'
 
 # sysctl attribute

@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  vagrantfiles:
+    - test/Files/vagrant.disk.rb
 
 provisioner:
   name: chef_zero
@@ -10,5 +12,17 @@ platforms:
 
 suites:
   - name: default
+    data_bags_path: test/integration/data_bags
     run_list:
+      - recipe[gdp-base-linux]
+      - recipe[selinux::permissive]
+      - recipe[sysctl::apply]
+      - recipe[mysql_config::limits]
+      - recipe[mysql_config::datafiles]
+      - recipe[mysql_config::logfiles]
+      - recipe[mysql_config::tmpdir]
+      - recipe[mysql_config::scheduler]
+      - recipe[mysql_config::mysqldb]
+      - recipe[mysql_config::mysql2_gem]
+      - recipe[mysql_config::start_replication]
     attributes:

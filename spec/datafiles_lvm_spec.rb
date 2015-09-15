@@ -38,7 +38,7 @@ describe 'mysql_config::datafiles_lvm' do
         path: '/data/mysql',
         owner: 'root',
         group: 'root',
-        mode: '0750',
+        mode: '0755',
         recursive: true
       )
   end

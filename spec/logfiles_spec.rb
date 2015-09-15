@@ -42,7 +42,7 @@ describe 'mysql_config::logfiles' do
           path: '/logs/mysql',
           owner: 'root',
           group: 'root',
-          mode: '0750',
+          mode: '0755',
           recursive: true
         )
     end
@@ -53,7 +53,7 @@ describe 'mysql_config::logfiles' do
           path: '/logs/mysql/bin-logs',
           owner: 'root',
           group: 'root',
-          mode: '0750',
+          mode: '0755',
           recursive: true
         )
     end
@@ -64,7 +64,7 @@ describe 'mysql_config::logfiles' do
           path: '/logs/mysql/relay-logs',
           owner: 'root',
           group: 'root',
-          mode: '0750',
+          mode: '0755',
           recursive: true
         )
     end

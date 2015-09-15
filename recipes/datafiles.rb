@@ -25,7 +25,7 @@ end
 directory '/data/mysql' do
   owner 'root'
   group 'root'
-  mode '0750'
+  mode '0755'
   recursive true
   action :create
 end

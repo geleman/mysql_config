@@ -36,9 +36,9 @@ describe 'mysql_config::datafiles_lvm' do
     expect(lvm).to create_directory('/data/mysql')
       .with(
         path: '/data/mysql',
-        owner: 'root',
-        group: 'root',
-        mode: '0755',
+        owner: 'mysql',
+        group: 'mysql',
+        mode: '0750',
         recursive: true
       )
   end

@@ -20,25 +20,25 @@ lvm_volume_group 'logs' do
 end
 
 directory '/logs/mysql' do
-  owner 'root'
-  group 'root'
-  mode '0755'
+  owner 'mysql'
+  group 'mysql'
+  mode '0750'
   recursive true
   action :create
 end
 
 directory '/logs/mysql/bin-logs' do
-  owner 'root'
-  group 'root'
-  mode '0755'
+  owner 'mysql'
+  group 'mysql'
+  mode '0750'
   recursive true
   action :create
 end
 
 directory '/logs/mysql/relay-logs' do
-  owner 'root'
-  group 'root'
-  mode '0755'
+  owner 'mysql'
+  group 'mysql'
+  mode '0750'
   recursive true
   action :create
 end

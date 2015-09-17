@@ -3,8 +3,8 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::logfiles_lvm' do
-  before do  
+describe 'mysql_config::mysql_user' do
+  before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
     stub_data_bag_item('users', 'fhanson').and_return({ id: "fhanson", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
@@ -17,51 +17,15 @@ describe 'mysql_config::logfiles_lvm' do
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
 
-  let(:lvm) do
-    ChefSpec::SoloRunner.new do |node|
-      node.set['mysql_config']['log']['disk'] = '/dev/sdc'
-      node.set['mysql_config']['log']['mount'] = '/log'
-    end.converge('mysql_config::logfiles_lvm')
-  end 
+  let(:mysql_user) { ChefSpec::SoloRunner.converge('mysql_config::mysql_user') }
 
-  it 'includes lvm recipe' do
-    expect(lvm).to include_recipe('mysql_config::logfiles_lvm')
-  end
+    it 'create mysql group' do
+      expect(mysql_user).to create_group('create mysql group')
+        .with(group_name: 'mysql')
+    end
 
-  it 'creates lvm group logs' do
-    expect(lvm).to create_lvm_volume_group('logs')
-  end
-
-  it 'creates mysql directory in /logs' do
-    expect(lvm).to create_directory('/logs/mysql')
-      .with(
-        path: '/logs/mysql',
-        owner: 'mysql',
-        group: 'mysql',
-        mode: '0750',
-        recursive: true
-      )
-  end
-
-  it 'creates bin-logs directory in /logs/mysql' do
-    expect(lvm).to create_directory('/logs/mysql/bin-logs')
-      .with(
-        path: '/logs/mysql/bin-logs',
-        owner: 'mysql',
-        group: 'mysql',
-        mode: '0750',
-        recursive: true
-      )
-  end
-
-  it 'creates relay-logs directory in /logs/mysql' do
-    expect(lvm).to create_directory('/logs/mysql/relay-logs')
-      .with(
-        path: '/logs/mysql/relay-logs',
-        owner: 'mysql',
-        group: 'mysql',
-        mode: '0750',
-        recursive: true
-      )
-  end
+    it 'create mysql user' do
+      expect(mysql_user).to create_user('create mysql user')
+        .with(username: 'mysql')
+    end
 end

@@ -14,18 +14,18 @@ if !node['mysql_config']['data']['disk'].nil? && File.exist?(node['mysql_config'
   end
 else
   directory node['mysql_config']['data']['mount'] do
-    owner 'root'
-    group 'root'
-    mode '0755'
+    owner 'mysql'
+    group 'mysql'
+    mode '0750'
     recursive true
     action :create
   end
 end
 
 directory '/data/mysql' do
-  owner 'root'
-  group 'root'
-  mode '0755'
+  owner 'mysql'
+  group 'mysql'
+  mode '0750'
   recursive true
   action :create
 end

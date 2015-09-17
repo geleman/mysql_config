@@ -29,9 +29,9 @@ describe 'mysql_config::logfiles' do
       expect(logfiles).to create_directory('/logs')
         .with(
           path: '/logs',
-          owner: 'root',
-          group: 'root',
-          mode: '0755',
+          owner: 'mysql',
+          group: 'mysql',
+          mode: '0750',
           recursive: true
         )
     end    
@@ -40,9 +40,9 @@ describe 'mysql_config::logfiles' do
       expect(logfiles).to create_directory('/logs/mysql')
         .with(
           path: '/logs/mysql',
-          owner: 'root',
-          group: 'root',
-          mode: '0755',
+          owner: 'mysql',
+          group: 'mysql',
+          mode: '0750',
           recursive: true
         )
     end
@@ -51,9 +51,9 @@ describe 'mysql_config::logfiles' do
       expect(logfiles).to create_directory('/logs/mysql/bin-logs')
         .with(
           path: '/logs/mysql/bin-logs',
-          owner: 'root',
-          group: 'root',
-          mode: '0755',
+          owner: 'mysql',
+          group: 'mysql',
+          mode: '0750',
           recursive: true
         )
     end
@@ -62,9 +62,9 @@ describe 'mysql_config::logfiles' do
       expect(logfiles).to create_directory('/logs/mysql/relay-logs')
         .with(
           path: '/logs/mysql/relay-logs',
-          owner: 'root',
-          group: 'root',
-          mode: '0755',
+          owner: 'mysql',
+          group: 'mysql',
+          mode: '0750',
           recursive: true
         )
     end

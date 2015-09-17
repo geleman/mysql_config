@@ -1,6 +1,9 @@
 ---
 driver:
   name: vagrant
+  customize:
+    memory: 2048
+    cpus: 2
   vagrantfiles:
     - test/Files/vagrant.disk.rb
 
@@ -17,6 +20,7 @@ suites:
       - recipe[gdp-base-linux]
       - recipe[selinux::permissive]
       - recipe[sysctl::apply]
+      - recipe[mysql_config::mysql_user]
       - recipe[mysql_config::limits]
       - recipe[mysql_config::datafiles]
       - recipe[mysql_config::logfiles]

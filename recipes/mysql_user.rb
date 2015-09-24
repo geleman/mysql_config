@@ -8,12 +8,12 @@
 #
 
 # System users
-group "create mysql group" do
+group 'create mysql group' do
   group_name 'mysql'
   action :create
 end
 
-user "create mysql user" do
+user 'create mysql user' do
   username 'mysql'
   gid 'mysql'
   action :create

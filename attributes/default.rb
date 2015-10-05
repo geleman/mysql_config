@@ -1,7 +1,7 @@
 # Default mysql config attributes
 node.normal['mysql_config']['instance_name'] = 'master'
 node.normal['mysql_config']['user'] = 'mysql'
-node.normal['mysql_config']['port'] = '3306'
+node.default['mysql_config']['port'] = '3306'
 node.normal['mysql_config']['max_allowed_packet'] = '64M'
 node.normal['mysql_config']['slow_query_log'] = 'off'
 node.normal['mysql_config']['binlog_format'] = 'ROW'

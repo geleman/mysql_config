@@ -15,7 +15,7 @@ iptables_rule 'mysql' do
 end
 
 mysql_service node['mysql_config']['instance_name'] do
-  port '3306'
+  port node['mysql_config']['port']
   version '5.6'
   data_dir '/data/mysql'
   tmp_dir '/tmp/shm'

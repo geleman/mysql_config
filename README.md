@@ -1,6 +1,13 @@
-# mysql_config-cookbook
+# MySQL Configuration Cookbook
 
-TODO: Enter the cookbook description here.
+This wrapper cookbook installs and configures MySQL while also optimizing the OS.
+The attributes files is configured to be on a system with 4G of memory and uses separate disk for
+data and logs for added performance and data integrity. This is intended to give a better out the box
+install than a default rpm mysql install. You can fork this repo and edit the attributes files to take
+better advantage of your system resources as well as add/subtract attributes.
+
+The [MySQL Community Cookbook](https://github.com/chef-cookbooks/mysql) is the basis for the intial install.
+You will use both the mysql_service and mysql_config resource. I suggest reading the [README](https://github.com/chef-cookbooks/mysql/blob/master/README.md) thoroughly before starting.
 
 ## Supported Platforms
 

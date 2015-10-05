@@ -63,7 +63,7 @@ node.default['mysql_config']['log']['disk'] =  '/dev/sdc'
 node.default['mysql_config']['data']['mount'] = '/data'
 node.default['mysql_config']['log']['mount'] = '/logs'
 ```
-- **Sysctl can be set to any number but 0 allows for full memory usage before swapping to disk**
+**Sysctl can be set to any number but 0 allows for full memory usage before swapping to disk**
 ```
 # sysctl attribute
 node.default['sysctl']['params']['vm']['swappiness'] = 0

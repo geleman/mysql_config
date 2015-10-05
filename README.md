@@ -28,6 +28,7 @@ RHEL Family
 ## Attributes
 
 ```
+- These attributes will be used in the mysql_config resource
 # Default mysql config attributes
 node.default['mysql_config']['instance_name'] = 'master'
 node.default['mysql_config']['user'] = 'mysql'
@@ -46,20 +47,27 @@ node.default['mysql_config']['innodb_flush_log_at_trx_commit'] = '2'
 node.default['mysql_config']['innodb_stats_on_metadata'] = 'OFF'
 node.default['mysql_config']['databag_name'] = 'master'
 
+- Disk attributes use lvm if in vagrant, lvm is not used for solr
 # disk attributes
+
 # vagrant settings
 node.default['mysql_config']['data']['disk'] = '/dev/sdb'
 node.default['mysql_config']['log']['disk'] =  '/dev/sdc'
+
 # solr settings
 # node.default['mysql_config']['data']['disk'] = nil
 # node.default['mysql_config']['log']['disk'] =  nil
+
 # solr & vagrant setttings
 node.default['mysql_config']['data']['mount'] = '/data'
 node.default['mysql_config']['log']['mount'] = '/logs'
 
+- Sysctl can be set to any number but 0 allows for full memory usage before swapping to disk
 # sysctl attribute
 node.default['sysctl']['params']['vm']['swappiness'] = 0
 
+- In vagrant you can set your ip's to whatever you would like before hand. Solr you will have to use a global variable 
+- to get the master server ip before starting the build on slave servers
 # master_ip attribute
 node.default['mysql_config']['master_ip'] = '10.84.101.100'
 ```

@@ -26,7 +26,7 @@ describe 'mysql_config::mysqldb' do
       step_into: 'mysql_service'
     ) do |node|
       node.set['mysql']['version'] = '5.6',
-      node.set['mysql_config']['databag_name'] = 'mysql'
+      node.set['mysql_config']['databag_name'] = 'master'
     end.converge('mysql_config::mysqldb')
   end
 
@@ -87,7 +87,7 @@ describe 'mysql_config::mysqldb' do
     ) do |node|
       node.set['mysql']['version'] = '5.6',
       #node.set['mysql_config']['instance_name'] = 'test',
-      node.set['mysql_config']['databag_name'] = 'mysql'
+      node.set['mysql_config']['databag_name'] = 'master'
     end.converge('mysql_config::mysqldb')
   end
 

@@ -27,7 +27,7 @@ RHEL Family
 
 ## Attributes
 
-- **These attributes will be used in the mysql_config resource**
+**These attributes will be used in the mysql_config resource**
 ```
 # Default mysql config attributes
 node.default['mysql_config']['instance_name'] = 'master'
@@ -68,8 +68,8 @@ node.default['mysql_config']['log']['mount'] = '/logs'
 # sysctl attribute
 node.default['sysctl']['params']['vm']['swappiness'] = 0
 ```
-- **In vagrant you can set your ip's to whatever you would like before hand. Solr you will have to use a global variable** 
-- **to get the master server ip before starting the build on slave servers**
+**In vagrant you can set your ip's to whatever you would like before hand. Solr you will have to use a global variable
+to get the master server ip before starting the build on slave servers**
 ```
 # master_ip attribute
 node.default['mysql_config']['master_ip'] = '10.84.101.100'

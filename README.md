@@ -47,7 +47,7 @@ node.default['mysql_config']['innodb_flush_log_at_trx_commit'] = '2'
 node.default['mysql_config']['innodb_stats_on_metadata'] = 'OFF'
 node.default['mysql_config']['databag_name'] = 'master'
 ```
-**Disk attributes use lvm if in vagrant, lvm is not used for solr**
+**Disk attributes use lvm if in vagrant, lvm is not used for scalr**
 ```
 # disk attributes
 
@@ -55,11 +55,11 @@ node.default['mysql_config']['databag_name'] = 'master'
 node.default['mysql_config']['data']['disk'] = '/dev/sdb'
 node.default['mysql_config']['log']['disk'] =  '/dev/sdc'
 
-# solr settings
+# scalr settings
 # node.default['mysql_config']['data']['disk'] = nil
 # node.default['mysql_config']['log']['disk'] =  nil
 
-# solr & vagrant setttings
+# scalr & vagrant setttings
 node.default['mysql_config']['data']['mount'] = '/data'
 node.default['mysql_config']['log']['mount'] = '/logs'
 ```
@@ -68,7 +68,7 @@ node.default['mysql_config']['log']['mount'] = '/logs'
 # sysctl attribute
 node.default['sysctl']['params']['vm']['swappiness'] = 0
 ```
-**In vagrant you can set your ip's to whatever you would like before hand. Solr you will have to use a global variable
+**In vagrant you can set your ip's to whatever you would like before hand. scalr you will have to use a global variable
 to get the master server ip before starting the build on slave servers**
 ```
 # master_ip attribute

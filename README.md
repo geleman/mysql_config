@@ -112,17 +112,17 @@ to bring up a master and multiple slaves and start replication.
 ```json
 
 {
-  'run_list': [
-    'recipe[gdp-base-linux]',
-    'selinux::permissive',
-    'sysctl::apply',
-    'mysql_config::mysql_user',
-    'mysql_config::limits',
-    'mysql_config::datafiles',
-    'mysql_config::logfiles',
-    'mysql_config::tmpdir',
-    'mysql_config::scheduler',
-    'mysql_config::mysqldb',
+  "run_list": [
+    "recipe[gdp-base-linux]",
+    "selinux::permissive",
+    "sysctl::apply",
+    "mysql_config::mysql_user",
+    "mysql_config::limits",
+    "mysql_config::datafiles",
+    "mysql_config::logfiles",
+    "mysql_config::tmpdir",
+    "mysql_config::scheduler",
+    "mysql_config::mysqldb",
 
   ]
 }

@@ -75,20 +75,94 @@ to get the master server ip before starting the build on slave servers**
 node.default['mysql_config']['master_ip'] = '10.84.101.100'
 ```
 
+## Databags
+
+Use databags to create passwords for the mysql root user on both master and slave instances as well as for a replication user.
+
+```json
+
+{
+  "id": "master",
+  "password": "change_me"
+}
+
+{
+  "id": "slave",
+  "password": "slave_pass"
+}
+
+{
+  "id": "replication",
+  "password": "repl_2"
+}
+```
+
 ## Usage
 
-### mysql_config::default
+### mysql_config
 
-Include `mysql_config` in your node's `run_list`:
+There are muliple uses for mysql_config. You can use it as standalone to do a single mysql server install or use role cookbooks
+to bring up a master and multiple slaves and start replication.
+
+### Sample runlist for standalone install with no replication
 
 ```json
 {
-  "run_list": [
-    "recipe[mysql_config::default]"
+  'run_list': [
+    'recipe[gdp-base-linux]',
+    'selinux::permissive',
+    'sysctl::apply',
+    'mysql_config::mysql_user',
+    'mysql_config::limits',
+    'mysql_config::datafiles',
+    'mysql_config::logfiles',
+    'mysql_config::tmpdir',
+    'mysql_config::scheduler',
+    'mysql_config::mysqldb',
+
   ]
 }
+```
+### Sample default recipe in a master role cookbook
+
+```
+include_recipe 'gdp-base-linux'
+include_recipe 'selinux::permissive'
+include_recipe 'sysctl::apply'
+include_recipe 'mysql_config::mysql_user'
+include_recipe 'mysql_config::limits'
+include_recipe 'mysql_config::datafiles'
+include_recipe 'mysql_config::logfiles'
+include_recipe 'mysql_config::tmpdir'
+include_recipe 'mysql_config::scheduler'
+include_recipe 'mysql_config::mysqldb'
+include_recipe 'mysql_config::mysql2_gem'
+include_recipe 'mysql_config::start_replication'
+```
+### Sample default recipe and attributes for slave cookbook
+
+```
+attributes to override mysql_config attributes 
+
+node.normal['mysql_config']['instance_name'] = 'slave'
+node.normal['mysql_config']['databag_name'] = 'slave'
+
+default recipe is same as master role with only the attribute changes
+
+include_recipe 'gdp-base-linux'
+include_recipe 'selinux::permissive'
+include_recipe 'sysctl::apply'
+include_recipe 'mysql_config::mysql_user'
+include_recipe 'mysql_config::limits'
+include_recipe 'mysql_config::datafiles'
+include_recipe 'mysql_config::logfiles'
+include_recipe 'mysql_config::tmpdir'
+include_recipe 'mysql_config::scheduler'
+include_recipe 'mysql_config::mysqldb'
+include_recipe 'mysql_config::mysql2_gem'
+include_recipe 'mysql_config::start_replication'
 ```
 
 ## License and Authors
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Author:: Greg Lane glane@gannett.com

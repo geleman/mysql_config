@@ -110,6 +110,7 @@ to bring up a master and multiple slaves and start replication.
 ### Sample runlist for standalone install with no replication
 
 ```json
+
 {
   'run_list': [
     'recipe[gdp-base-linux]',

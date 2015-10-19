@@ -1,4 +1,12 @@
+# MySQL Community Version 5.5, 5.6, or 5.7
+node.default['mysql_config']['version'] = '5.6'
+
 # Default mysql config attributes
+node.default['mysql_config']['data_dir'] = '/data/mysql'
+node.default['mysql_config']['tmp_dir'] = '/tmp/shm'
+node.default['mysql_config']['error_log'] = '/logs/mysql/mysql.err'
+node.default['mysql_config']['socket'] = '/tmp/mysqld.sock'
+node.default['mysql_config']['pid_file'] = '/tmp/mysqld.pid'
 node.default['mysql_config']['instance_name'] = 'master'
 node.default['mysql_config']['user'] = 'mysql'
 node.default['mysql_config']['port'] = '3306'

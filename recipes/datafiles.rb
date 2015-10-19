@@ -22,7 +22,7 @@ else
   end
 end
 
-directory '/data/mysql' do
+directory "#{node['mysql_config']['data']['mount']}/mysql" do
   owner 'mysql'
   group 'mysql'
   mode '0750'

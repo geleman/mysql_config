@@ -1,5 +1,5 @@
 name             'mysql_config'
-maintainer       'greg lane'
+maintainer       'Gannett'
 maintainer_email 'glane@gannett.com'
 license          'All rights reserved'
 description      'Installs/Configures mysql_config'

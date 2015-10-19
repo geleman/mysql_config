@@ -36,7 +36,7 @@ describe 'mysql_config::logfiles' do
         )
     end    
 
-    it 'it creates /logs/mysql directory' do
+    it 'creates /logs/mysql directory' do
       expect(logfiles).to create_directory('/logs/mysql')
         .with(
           path: '/logs/mysql',
@@ -47,7 +47,7 @@ describe 'mysql_config::logfiles' do
         )
     end
     
-    it 'it creates /logs/mysql/bin-logs directory' do
+    it 'creates /logs/mysql/bin-logs directory' do
       expect(logfiles).to create_directory('/logs/mysql/bin-logs')
         .with(
           path: '/logs/mysql/bin-logs',
@@ -58,7 +58,7 @@ describe 'mysql_config::logfiles' do
         )
     end
 
-        it 'it creates /logs/mysql/relay-logs directory' do
+        it 'creates /logs/mysql/relay-logs directory' do
       expect(logfiles).to create_directory('/logs/mysql/relay-logs')
         .with(
           path: '/logs/mysql/relay-logs',

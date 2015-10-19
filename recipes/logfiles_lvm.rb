@@ -19,7 +19,7 @@ lvm_volume_group 'logs' do
   end
 end
 
-directory '/logs/mysql' do
+directory "#{node['mysql_config']['log']['mount']}/mysql" do
   owner 'mysql'
   group 'mysql'
   mode '0750'
@@ -27,18 +27,28 @@ directory '/logs/mysql' do
   action :create
 end
 
-directory '/logs/mysql/bin-logs' do
-  owner 'mysql'
-  group 'mysql'
-  mode '0750'
-  recursive true
-  action :create
+['bin-logs', 'relay-logs'].each do |dir|
+  directory "#{node['mysql_config']['log']['mount']}/mysql/#{dir}" do
+    owner 'mysql'
+    group 'mysql'
+    mode '0750'
+    recursive true
+    action :create
+  end
 end
 
-directory '/logs/mysql/relay-logs' do
-  owner 'mysql'
-  group 'mysql'
-  mode '0750'
-  recursive true
-  action :create
-end
+# directory '/logs/mysql/bin-logs' do
+#  owner 'mysql'
+#  group 'mysql'
+#  mode '0750'
+#  recursive true
+#  action :create
+# end
+
+# directory '/logs/mysql/relay-logs' do
+#  owner 'mysql'
+#  group 'mysql'
+#  mode '0750'
+#  recursive true
+#  action :create
+# end

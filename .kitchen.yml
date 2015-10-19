@@ -6,6 +6,7 @@ driver:
     cpus: 2
   vagrantfiles:
     - test/Files/vagrant.disk.rb
+    - test/Files/vagrantAdditional.rb
 
 provisioner:
   name: chef_zero

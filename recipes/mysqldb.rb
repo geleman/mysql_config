@@ -16,19 +16,19 @@ end
 
 mysql_service node['mysql_config']['instance_name'] do
   port node['mysql_config']['port']
-  version '5.6'
-  data_dir '/data/mysql'
-  tmp_dir '/tmp/shm'
-  error_log '/logs/mysql/mysql.err'
-  socket '/tmp/mysqld.sock'
-  pid_file '/tmp/mysqld.pid'
+  version node['mysql_config']['version']
+  data_dir node['mysql_config']['data_dir']
+  tmp_dir node['mysql_config']['tmp_dir']
+  error_log node['mysql_config']['error_log']
+  socket node['mysql_config']['socket']
+  pid_file node['mysql_config']['pid_file']
   bind_address '0.0.0.0'
   initial_root_password opts['password']
   action [:create, :start]
 end
 
-execute 'change /logs/mysql dir permissions' do
-  command 'chown -R mysql:mysql /logs/mysql'
+execute 'change log dir permissions' do
+  command "chown -R mysql:mysql #{node['mysql_config']['log']['mount']}/mysql"
   user 'root'
   action :run
 end
@@ -51,7 +51,7 @@ mysql_config node['mysql_config']['instance_name'] do
 end
 
 execute 'remove old innodb log files' do
-  command 'rm -f /data/mysql/ib_logfile*'
+  command "rm -f #{node['mysql_config']['data']['mount']}/mysql/ib_logfile*"
   user 'root'
   action :run
 end

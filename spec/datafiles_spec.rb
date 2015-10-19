@@ -34,9 +34,9 @@ describe 'mysql_config::datafiles' do
           mode: '0750',
           recursive: true
         )
-    end    
+    end
 
-    it 'it creates /data/mysql directory' do
+    it 'creates /data/mysql directory' do
       expect(datafiles).to create_directory('/data/mysql')
         .with(
           path: '/data/mysql',

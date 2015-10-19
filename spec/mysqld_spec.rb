@@ -27,6 +27,8 @@ describe 'mysql_config::mysqldb' do
     ) do |node|
       node.set['mysql']['version'] = '5.6',
       node.set['mysql_config']['databag_name'] = 'master'
+      node.set['mysql_config']['data']['mount'] = '/data'
+      node.set['mysql_config']['log']['mount'] = '/logs'
     end.converge('mysql_config::mysqldb')
   end
 

@@ -20,7 +20,7 @@ describe 'mysql_config::logfiles_lvm' do
   let(:lvm) do
     ChefSpec::SoloRunner.new do |node|
       node.set['mysql_config']['log']['disk'] = '/dev/sdc'
-      node.set['mysql_config']['log']['mount'] = '/log'
+      node.set['mysql_config']['log']['mount'] = '/logs'
     end.converge('mysql_config::logfiles_lvm')
   end 
 
@@ -32,7 +32,7 @@ describe 'mysql_config::logfiles_lvm' do
     expect(lvm).to create_lvm_volume_group('logs')
   end
 
-  it 'creates mysql directory in /logs' do
+  it 'creates /logs/mysql directory' do
     expect(lvm).to create_directory('/logs/mysql')
       .with(
         path: '/logs/mysql',
@@ -43,7 +43,7 @@ describe 'mysql_config::logfiles_lvm' do
       )
   end
 
-  it 'creates bin-logs directory in /logs/mysql' do
+  it 'creates /logs/mysql/bin-logs directory' do
     expect(lvm).to create_directory('/logs/mysql/bin-logs')
       .with(
         path: '/logs/mysql/bin-logs',
@@ -54,7 +54,7 @@ describe 'mysql_config::logfiles_lvm' do
       )
   end
 
-  it 'creates relay-logs directory in /logs/mysql' do
+  it 'creates /logs/mysql/relay-logs directory' do
     expect(lvm).to create_directory('/logs/mysql/relay-logs')
       .with(
         path: '/logs/mysql/relay-logs',

@@ -32,7 +32,7 @@ describe 'mysql_config::datafiles_lvm' do
     expect(lvm).to create_lvm_volume_group('data')
   end
 
-  it 'creates mysql directory in /data' do
+    it 'creates /data/mysql directory' do
     expect(lvm).to create_directory('/data/mysql')
       .with(
         path: '/data/mysql',

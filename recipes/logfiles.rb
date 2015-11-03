@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql_config
+# Cookbook Name:: mysql_support
 # Recipe:: logfiles
 #
 # Copyright (C) 2015 Greg Lane
@@ -7,13 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-if !node['mysql_config']['log']['disk'].nil? && File.exist?(node['mysql_config']['log']['disk'])
+if !node['mysql_support']['log']['disk'].nil? && File.exist?(node['mysql_support']['log']['disk'])
   case node['platform']
   when 'redhat', 'centos', 'amazon', 'scientific'
-    include_recipe 'mysql_config::logfiles_lvm'
+    include_recipe 'mysql_support::logfiles_lvm'
   end
 else
-  directory node['mysql_config']['log']['mount'] do
+  directory node['mysql_support']['log']['mount'] do
     owner 'mysql'
     group 'mysql'
     mode '0750'
@@ -22,7 +22,7 @@ else
   end
 end
 
-directory "#{node['mysql_config']['log']['mount']}/mysql" do
+directory "#{node['mysql_support']['log']['mount']}/mysql" do
   owner 'mysql'
   group 'mysql'
   mode '0750'
@@ -31,7 +31,7 @@ directory "#{node['mysql_config']['log']['mount']}/mysql" do
 end
 
 ['bin-logs', 'relay-logs'].each do |dir|
-  directory "#{node['mysql_config']['log']['mount']}/mysql/#{dir}" do
+  directory "#{node['mysql_support']['log']['mount']}/mysql/#{dir}" do
     owner 'mysql'
     group 'mysql'
     mode '0750'

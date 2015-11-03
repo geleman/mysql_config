@@ -83,7 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
 
     chef.run_list = [
-      'recipe[mysql_config::default]'
+      'recipe[mysql_support::default]'
     ]
   end
 end

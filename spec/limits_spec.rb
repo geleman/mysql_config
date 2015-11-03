@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::limits' do
+describe 'mysql_support::limits' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -24,7 +24,7 @@ describe 'mysql_config::limits' do
       step_into: 'limits_config'
     ) do |node|
       allow(node).to receive(:name).and_return('limits-test-node')
-    end.converge('mysql_config::limits')
+    end.converge('mysql_support::limits')
   end
  
   it 'creates a new systems file limits' do

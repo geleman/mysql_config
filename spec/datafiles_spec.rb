@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::datafiles' do
+describe 'mysql_support::datafiles' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -20,9 +20,9 @@ describe 'mysql_config::datafiles' do
   context 'centos' do
     let(:datafiles) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['mysql_config']['data']['disk'] = nil
-        node.set['mysql_config']['data']['mount'] = '/data'
-      end.converge('mysql_config::datafiles')
+        node.set['mysql_support']['data']['disk'] = nil
+        node.set['mysql_support']['data']['mount'] = '/data'
+      end.converge('mysql_support::datafiles')
     end 
 
     it 'creates /data directory' do

@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::datafiles_lvm' do
+describe 'mysql_support::datafiles_lvm' do
   before do  
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -19,13 +19,13 @@ describe 'mysql_config::datafiles_lvm' do
 
   let(:lvm) do
     ChefSpec::SoloRunner.new do |node|
-      node.set['mysql_config']['data']['disk'] = '/dev/sdb'
-      node.set['mysql_config']['data']['mount'] = '/data'
-    end.converge('mysql_config::datafiles_lvm')
+      node.set['mysql_support']['data']['disk'] = '/dev/sdb'
+      node.set['mysql_support']['data']['mount'] = '/data'
+    end.converge('mysql_support::datafiles_lvm')
   end 
 
   it 'includes lvm recipe' do
-    expect(lvm).to include_recipe('mysql_config::datafiles_lvm')
+    expect(lvm).to include_recipe('mysql_support::datafiles_lvm')
   end
 
   it 'creates lvm group data' do

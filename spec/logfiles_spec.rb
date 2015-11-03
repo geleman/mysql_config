@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::logfiles' do
+describe 'mysql_support::logfiles' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -20,9 +20,9 @@ describe 'mysql_config::logfiles' do
   context 'centos' do
     let(:logfiles) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['mysql_config']['log']['disk'] = nil
-        node.set['mysql_config']['log']['mount'] = '/logs'
-      end.converge('mysql_config::logfiles')
+        node.set['mysql_support']['log']['disk'] = nil
+        node.set['mysql_support']['log']['mount'] = '/logs'
+      end.converge('mysql_support::logfiles')
     end 
 
     it 'creates /logs directory' do

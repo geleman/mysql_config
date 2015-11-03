@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql_config
+# Cookbook Name:: mysql_support
 # Recipe:: default
 #
 # Copyright (C) 2015 YOUR_NAME

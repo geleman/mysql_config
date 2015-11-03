@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::mysqldb' do
+describe 'mysql_support::mysqldb' do
   before do
     stub_data_bag_item('mysql', 'master').and_return({ id: 'mysql', password: 'test' })
     stub_command("/usr/bin/test -f /data/mysql/mysql/user.frm").and_return(true)
@@ -26,10 +26,10 @@ describe 'mysql_config::mysqldb' do
       step_into: 'mysql_service'
     ) do |node|
       node.set['mysql']['version'] = '5.6',
-      node.set['mysql_config']['databag_name'] = 'master'
-      node.set['mysql_config']['data']['mount'] = '/data'
-      node.set['mysql_config']['log']['mount'] = '/logs'
-    end.converge('mysql_config::mysqldb')
+      node.set['mysql_support']['databag_name'] = 'master'
+      node.set['mysql_support']['data']['mount'] = '/data'
+      node.set['mysql_support']['log']['mount'] = '/logs'
+    end.converge('mysql_support::mysqldb')
   end
 
   context 'compling the test recipe' do
@@ -71,7 +71,7 @@ describe 'mysql_config::mysqldb' do
   end
 end
 
-describe 'mysql_config::mysqldb' do
+describe 'mysql_support::mysqldb' do
     before do
     stub_data_bag('mysql').and_return(['password', 'mysql'])
     stub_data_bag_item('mysql', 'master').and_return({
@@ -88,20 +88,20 @@ describe 'mysql_config::mysqldb' do
       step_into: 'mysql_config'
     ) do |node|
       node.set['mysql']['version'] = '5.6',
-      #node.set['mysql_config']['instance_name'] = 'test',
-      node.set['mysql_config']['databag_name'] = 'master'
-    end.converge('mysql_config::mysqldb')
+      #node.set['mysql_support']['instance_name'] = 'test',
+      node.set['mysql_support']['databag_name'] = 'master'
+    end.converge('mysql_support::mysqldb')
   end
 
 
-  # Resource in mysql_config::master
+  # Resource in mysql_support::master
   context 'compiling the test recipe' do
     it 'creates mysql_config[master]' do
       expect(mysqld).to create_mysql_config('master')
     end
   end
 
-  # mysql_config resource internal implementation
+  # mysql_support resource internal implementation
   context 'stepping into mysql_config[master] resource' do
     it 'creates group[master :create mysql]' do
       expect(mysqld).to create_group('master :create mysql')

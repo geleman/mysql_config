@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::start_replication' do
+describe 'mysql_support::start_replication' do
   before do
     stub_data_bag_item('mysql', 'master').and_return({ id: 'master', password: 'test' })
     stub_data_bag_item('mysql', 'slave').and_return({ id: 'slave', password: 'test' })
@@ -27,8 +27,8 @@ describe 'mysql_config::start_replication' do
       version: '6.6',
       step_into: 'mysql_database_user'
     ) do |node|
-      node.override['mysql_config']['instance_name'] = 'master'
-    end.converge('mysql_config::start_replication')
+      node.override['mysql_support']['instance_name'] = 'master'
+    end.converge('mysql_support::start_replication')
   end
   
   #context 'compling the test recipe' do

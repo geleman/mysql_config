@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql_config
+# Cookbook Name:: mysql_support
 # Recipe:: tmpdir
 #
 # Copyright (C) 2015 Greg Lane
@@ -12,7 +12,7 @@ mount '/dev/shm' do
   action [:umount, :disable]
 end
 
-directory '/tmp/shm' do
+directory node['mysql_support']['tmpfs'] do
   owner 'root'
   group 'root'
   mode  '0777'
@@ -20,7 +20,7 @@ directory '/tmp/shm' do
   action :create
 end
 
-mount '/tmp/shm' do
+mount node['mysql_support']['tmpfs'] do
   device 'tmpfs'
   fstype 'tmpfs'
   options 'rw,size=1G,noatime'

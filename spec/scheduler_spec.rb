@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::scheduler' do
+describe 'mysql_support::scheduler' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -19,9 +19,9 @@ describe 'mysql_config::scheduler' do
    
     let(:scheduler) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['mysql_config']['data']['disk'] = nil
-        node.set['mysql_config']['log']['disk'] = nil
-      end.converge('mysql_config::scheduler')
+        node.set['mysql_support']['data']['disk'] = nil
+        node.set['mysql_support']['log']['disk'] = nil
+      end.converge('mysql_support::scheduler')
     end
 
     it 'runs execute[data :create deadline data dir scheduler' do

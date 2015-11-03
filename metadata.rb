@@ -1,9 +1,9 @@
-name             'mysql_config'
+name             'mysql_support'
 maintainer       'Gannett'
 maintainer_email 'glane@gannett.com'
 license          'All rights reserved'
-description      'Installs/Configures mysql_config'
-long_description 'Installs/Configures mysql_config'
+description      'Installs/Configures mysql_support'
+long_description 'Installs/Configures mysql_support'
 version          '0.1.0'
 
 depends 'mysql'

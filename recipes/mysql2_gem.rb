@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql_config
+# Cookbook Name:: mysql_support
 # Recipe:: mysql2_gem
 #
 # Copyright (C) 2015 Greg Lane

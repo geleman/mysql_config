@@ -1,3 +1,3 @@
 # 0.1.0
 
-Initial release of mysql_config
+Initial release of mysql_support

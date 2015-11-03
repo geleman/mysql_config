@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::mysql_user' do
+describe 'mysql_support::mysql_user' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -17,7 +17,7 @@ describe 'mysql_config::mysql_user' do
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
 
-  let(:mysql_user) { ChefSpec::SoloRunner.converge('mysql_config::mysql_user') }
+  let(:mysql_user) { ChefSpec::SoloRunner.converge('mysql_support::mysql_user') }
 
     it 'create mysql group' do
       expect(mysql_user).to create_group('create mysql group')

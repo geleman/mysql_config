@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::mysql2_gem' do
+describe 'mysql_support::mysql2_gem' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -20,7 +20,7 @@ describe 'mysql_config::mysql2_gem' do
   let(:mysql2_gem) do
     ChefSpec::SoloRunner.new do |node|
       node.set['mysql2_chef_gem']['resource_name'] = 'default'
-    end.converge('mysql_config::mysql2_gem')
+    end.converge('mysql_support::mysql2_gem')
   end
 
   context 'when using default parameters' do

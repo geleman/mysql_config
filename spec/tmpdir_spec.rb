@@ -3,7 +3,7 @@ require 'chefspec'
 require 'spec_helper'
 require 'fauxhai'
 
-describe 'mysql_config::tmpdir' do
+describe 'mysql_support::tmpdir' do
   before do
     stub_command("/usr/sbin/httpd -t").and_return(true)
     stub_command("which sudo").and_return(true)
@@ -17,7 +17,7 @@ describe 'mysql_config::tmpdir' do
     stub_data_bag_item('users', 'nessus').and_return({ id: "nessus", team: "test", ssh_keys: "derp_key", administrator: "true", group: "test" })
   end
 
-  let(:tmpdir) { ChefSpec::SoloRunner.converge('mysql_config::tmpdir') }
+  let(:tmpdir) { ChefSpec::SoloRunner.converge('mysql_support::tmpdir') }
 
   it 'umounts /dev/shm directory' do
     expect(tmpdir).to umount_mount('/dev/shm')

@@ -68,7 +68,7 @@ node.default['mysql_support']['log']['disk'] =  nil
 node.default['mysql_support']['data']['mount'] = '/data'
 node.default['mysql_support']['log']['mount'] = '/logs'
 ```
-**tmpfs attribute
+**tmpfs attribute**
 ```
 # tmpfs mount
 node.default['mysql_support']['tmpfs'] = '/tmp/shm'

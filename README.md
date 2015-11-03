@@ -29,7 +29,16 @@ RHEL Family
 
 **These attributes will be used in the mysql_support resource**
 ```
+# MySQL Community Version 5.5, 5.6, or 5.7
+node.default['mysql_support']['version'] = '5.6'
+```
+```
 # Default mysql config attributes
+node.default['mysql_support']['data_dir'] = '/data/mysql'
+node.default['mysql_support']['tmp_dir'] = '/tmp/shm'
+node.default['mysql_support']['error_log'] = '/logs/mysql/mysql.err'
+node.default['mysql_support']['socket'] = '/tmp/mysqld.sock'
+node.default['mysql_support']['pid_file'] = '/tmp/mysqld.pid'
 node.default['mysql_support']['instance_name'] = 'master'
 node.default['mysql_support']['user'] = 'mysql'
 node.default['mysql_support']['port'] = '3306'
@@ -54,17 +63,15 @@ node.default['mysql_support']['databag_name'] = 'master'
 ```
 # disk attributes
 
-# vagrant settings
-node.default['mysql_support']['data']['disk'] = '/dev/sdb'
-node.default['mysql_support']['log']['disk'] =  '/dev/sdc'
-
-# scalr settings
-# node.default['mysql_support']['data']['disk'] = nil
-# node.default['mysql_support']['log']['disk'] =  nil
-
-# scalr & vagrant setttings
+node.default['mysql_support']['data']['disk'] = nil
+node.default['mysql_support']['log']['disk'] =  nil
 node.default['mysql_support']['data']['mount'] = '/data'
 node.default['mysql_support']['log']['mount'] = '/logs'
+```
+**tmpfs attribute
+```
+# tmpfs mount
+node.default['mysql_support']['tmpfs'] = '/tmp/shm'
 ```
 **Sysctl can be set to any number but 0 allows for full memory usage before swapping to disk**
 ```
@@ -75,7 +82,7 @@ node.default['sysctl']['params']['vm']['swappiness'] = 0
 to get the master server ip before starting the build on slave servers**
 ```
 # master_ip attribute
-node.default['mysql_support']['master_ip'] = '10.84.101.100'
+node.default['mysql_support']['master_ip'] = nil
 ```
 
 ## Databags
@@ -104,7 +111,7 @@ Use databags to create passwords for the mysql root user on both master and slav
 
 ### mysql_support
 
-There are muliple uses for mysql_support. You can use it as standalone to do a single mysql server install or use role cookbooks
+There are multiple uses for mysql_support. You can use it as standalone to do a single mysql server install or use role cookbooks
 to bring up a master and multiple slaves and start replication.
 
 ### Sample runlist for standalone install with no replication

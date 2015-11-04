@@ -1,6 +1,7 @@
 ---
 driver:
   name: vagrant
+  #gui: true 
   customize:
     memory: 2048
     cpus: 2
@@ -14,7 +15,7 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: chef/centos-6.6
+  - name: centos-6.6
 
 suites:
   - name: default

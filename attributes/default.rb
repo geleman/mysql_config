@@ -28,7 +28,7 @@ node.default['mysql_support']['databag_name'] = 'master'
 
 # disk attributes
 node.default['mysql_support']['data']['disk'] = nil
-node.default['mysql_support']['log']['disk'] =  nil
+node.default['mysql_support']['log']['disk'] = nil
 node.default['mysql_support']['data']['mount'] = '/data'
 node.default['mysql_support']['log']['mount'] = '/logs'
 

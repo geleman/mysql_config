@@ -30,11 +30,6 @@ RHEL Family
 When running kitchen you can speed up the process by adding the vagrant plugin vagrant-vbguest (0.10.0) and uncommenting:
 - test/Files/vagrantAdditional.rb 
 in the .kitchen.yml and .kitchen.ec2.yml files.
-
-If you want to test using lvm then you will need to use lvm-1.4.0 from Chef Supermarket for Centos 6.7.
-At that point you can uncomment scheduler in order to test changing the scheduler to something other than cfq
-and uncommetn the attributes for [data][disk] and [log][disk]
-You will at this poing need to uncomment commented out lines in scheduler_spec.rb and data_log_dir_spec.rb in /test/default/serverspec
 ```
 
 ## Attributes
@@ -74,8 +69,6 @@ node.default['mysql_support']['databag_name'] = 'master'
 **Disk attributes use lvm if in vagrant, lvm is not used for scalr**
 ```
 # disk attributes
-
-To have separate mounts for data and logs in scalr you will need to add whatever flavor of storage you desire in the farm role when setting up your run. This is suggested becasue it gives you better performance and better data integrity and allows you to change the I/O scheduler. 
 
 node.default['mysql_support']['data']['disk'] = nil
 node.default['mysql_support']['log']['disk'] =  nil

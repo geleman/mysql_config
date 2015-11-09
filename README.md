@@ -75,6 +75,8 @@ node.default['mysql_support']['databag_name'] = 'master'
 ```
 # disk attributes
 
+To have separate mounts for data and logs in scalr you will need to add whatever flavor of storage you desire in the farm role when setting up your run. This is suggested becasue it gives you better performance and better data integrity and allows you to change the I/O scheduler. 
+
 node.default['mysql_support']['data']['disk'] = nil
 node.default['mysql_support']['log']['disk'] =  nil
 node.default['mysql_support']['data']['mount'] = '/data'

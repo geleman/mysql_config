@@ -1,21 +1,22 @@
 ---
 driver:
   name: vagrant
-  #gui: true 
+  box: centos-67-cloud
+  gui: true 
   customize:
     memory: 2048
     cpus: 2
   network:
     - ["private_network", [ip: "192.168.10.100"]]
   vagrantfiles:
-    - test/Files/vagrant.disk.rb
+  #  - test/Files/vagrant.disk.rb
     - test/Files/vagrantAdditional.rb
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-6.6
+  - name: centos-6.7
 
 suites:
   - name: default
@@ -29,14 +30,14 @@ suites:
       - recipe[mysql_support::datafiles]
       - recipe[mysql_support::logfiles]
       - recipe[mysql_support::tmpdir]
-      - recipe[mysql_support::scheduler]
+    #  - recipe[mysql_support::scheduler]
       - recipe[mysql_support::mysqldb]
       - recipe[mysql_support::mysql2_gem]
       - recipe[mysql_support::start_replication]
     attributes:
       mysql_support:
         master_ip: '192.168.10.100'
-        data:
-          disk: '/dev/sdb'
-        log:
-          disk: '/dev/sdc'
+    #    data:
+    #      disk: '/dev/sdb'
+    #    log:
+    #      disk: '/dev/sdc'

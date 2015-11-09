@@ -45,7 +45,7 @@ mysql_config node['mysql_support']['instance_name'] do
   source 'defaults.cnf.erb'
   variables(
     server_id: server_id
-    )
+  )
   action :create
   notifies :restart, "mysql_service[#{node['mysql_support']['instance_name']}]", :immediately
 end

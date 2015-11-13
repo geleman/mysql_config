@@ -2,7 +2,7 @@
 driver:
   name: vagrant
   box: centos-67-cloud
-  gui: true 
+  #gui: true 
   customize:
     memory: 2048
     cpus: 2
